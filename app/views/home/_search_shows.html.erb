@@ -1,0 +1,63 @@
+<%if @shows.present?%>
+  <%@shows.each do |showw|%>
+    <div class="col-lg-3 shows-list">
+      <span>
+        <b>Channel Name:</b> <%= showw.channel.name%>
+      </span>
+      <div>
+        <span>
+          <b>Shows:</b>
+        </span>
+        <ul>
+          <li>
+            <%=showw.name%><br>
+            <span>
+              <small><%=showw.start_at.strftime("%H:%M %P") %> -to-<%= showw.end_at.strftime("%H:%M %P") %></small>
+            </span><br>
+            <span>
+              <%unless showw.favourites.present?%>
+                <%= link_to "Mark Favourite", mark_as_favourite_favourites_path(show_id: showw.id), method: :post, remote: true%>
+              <%else%>
+                <i class="fa fa-star" style="color:green;"></i> Added as a Favourite
+              <%end%>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+
+<%if @channels.present?%>
+  <%@channels.each do |channel|%>
+    <div class="col-lg-3 shows-list">
+      <span>
+        <b>Channel Name:</b> <%=channel.name%>
+      </span>
+      <div>
+        <span>
+          <b>Shows:</b>
+        </span>
+        <ul>
+          <%channel.shows.each do|show|%>
+            <li>
+              <%=show.name%><br>
+              <span>
+                <small><%=show.start_at.strftime("%H:%M %P") %> -to-<%= show.end_at.strftime("%H:%M %P") %></small>
+              </span><br>
+              <span>
+                <%unless show.favourites.present?%>
+                  <%= link_to "Mark Favourite", mark_as_favourite_favourites_path(show_id: show.id), method: :post, remote: true%>
+                <%else%>
+                  <i class="fa fa-star" style="color:green;"></i> Added as a Favourite
+                <%end%>
+              </span>
+            </li>
+          <%end%>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>
